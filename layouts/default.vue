@@ -1,15 +1,20 @@
+@import "tailwindcss";
+@layer components {
+.nave {my-auto; p-2; hover:bg-green-500; max-sm:w-full; max-sm:border-b-2; max-sm:border-black; max-sm:text-center;}
+}
+
 <template>
-    <header class = "flex flex-row w-full">
-        <div class = "basis-1/4 items-center justify-start px-4">
+    <header class = "flex flex-row w-full max-sm:justify-between max-sm:relative">
+        <div class = "basis-1/4 items-center justify-start px-4 min-w-40 max-sm:basis-auto">
             <img src="assets/images/logo.png" class="w-16 h-16">
         </div>
-        <div class = "basis-1/4">
+        <div class = "basis-1/4 max-sm:basis-auto">
         </div>
-        <nav class = "basis-1/2 flex flex-row items-center justify-end px-4 gap-4">
-            <NuxtLink to = "/" class="my-auto p-2 hover:bg-green-500">Home</NuxtLink>
-            <NuxtLink to = "/lab3" class="my-auto p-2 hover:bg-green-500">Lab3</NuxtLink>
-            <NuxtLink to = "/login" class="my-auto p-2 hover:bg-green-500">LogIn</NuxtLink>
-            <NuxtLink to = "/logout" class="my-auto p-2 hover:bg-green-500">LogOut</NuxtLink>
+        <nav class = "basis-1/2 flex flex-row items-center justify-end px-4 gap-4 max-sm:basis-auto max-sm:absolute max-sm:top-full max-sm:w-full max-sm:justify-center max-sm:flex-col max-sm:gap-0 max-sm:bg-white max-sm:px-0">
+            <NuxtLink to = "/" class="nave">Home</NuxtLink>
+            <NuxtLink to = "/lab3" class="nave">Lab3</NuxtLink>
+            <NuxtLink to = "/login" class="nave">LogIn</NuxtLink>
+            <NuxtLink to = "/logout" class="nave">LogOut</NuxtLink>
         </nav>
     </header>
 
