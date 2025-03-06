@@ -1,7 +1,4 @@
-@import "tailwindcss";
-@layer components {
-.nave {my-auto; p-2; hover:bg-green-500; max-sm:w-full; max-sm:border-b-2; max-sm:border-black; max-sm:text-center;}
-}
+@import "nuxt_project/assets/css/main.css"
 
 <template>
     <header class = "flex flex-row w-full max-sm:justify-between max-sm:relative">
@@ -10,14 +7,30 @@
         </div>
         <div class = "basis-1/4 max-sm:basis-auto">
         </div>
-        <nav class = "basis-1/2 flex flex-row items-center justify-end px-4 gap-4 max-sm:basis-auto max-sm:absolute max-sm:top-full max-sm:w-full max-sm:justify-center max-sm:flex-col max-sm:gap-0 max-sm:bg-white max-sm:px-0">
-            <NuxtLink to = "/" class="nave">Home</NuxtLink>
-            <NuxtLink to = "/lab3" class="nave">Lab3</NuxtLink>
-            <NuxtLink to = "/login" class="nave">LogIn</NuxtLink>
-            <NuxtLink to = "/logout" class="nave">LogOut</NuxtLink>
+	<nav class="{'basis-1/2 flex flex-row items-center justify-end px-8 gap-4': !burger || burger, 'max-sm:basis-auto max-sm:absolute max-sm:top-full max-sm:w-full max-sm:justify-center max-sm:flex-col max-sm:gap-0 max-sm:bg-white max-sm:px-0':burger,'max-sm:hidden': !burger}">
+            <NuxtLink to = "/" class="my auto p-2 hover:bg-gray-500 rounded-lg max-sm:border-b-2 max-sm:w-full max-sm:border-black max-sm:text-center">Home</NuxtLink>
+            <div class="ml-auto p-2 hover:bg-gray-500 hover:text-white max-sm:w-full max-sm:text-center max-sm:px-0 max-sm:pb-0" @click = "switch_submenu">Labs</div>
+                <div class="flex flex-col top-2 absolute bg-white text-black w- text-center max-sm:relative max-sm:w-full max-sm:bg-red-100 max-sm:px-0" v-show="submenu">
+                    <NuxtLink to =/lab3 class="my-auto p-2 border-b-2 border-black hover:bg-gray-500 hover:text-white max-sm:w-full max-sm:text-center">Lab3</NuxtLink>
+                    <NuxtLink to =/lab4 class="my-auto p-2 border-b-2 border-black hover:bg-gray-500 hover:text-white max-sm:w-full max-sm:text-center">Lab4</NuxtLink>
+                    <NuxtLink to =/lab5 class="my-auto p-2 border-b-2 border-black hover:bg-gray-500 hover:text-white max-sm:w-full max-sm:text-center">Lab5</NuxtLink>
+                    <NuxtLink to =/lab6 class="my-auto p-2 border-b-2 border-black hover:bg-gray-500 hover:text-white max-sm:w-full max-sm:text-center">LAB6</NuxtLink>
+                </div>
+            </div>
+            <NuxtLink to = "/login" class="{'my auto p-2 hover:bg-gray-500 rounded-lg max-sm:border-b-2 max-sm:w-full max-sm:border-black max-sm:text-center': submenu,'my-auto p-2 hover-bg-gray-500 hover:text-white max-sm:w-full max-sm:border-b-2 max-sm:text-center':!submenu}">Login</NuxtLink>
+            <NuxtLink to = "/logout" class="my auto p-2 hover:bg-gray-500 rounded-lg max-sm:border-b-2 max-sm:w-full max-sm:border-black max-sm:text-center">Logout</NuxtLink>
         </nav>
-    </header>
-
+        <div v-if="!burger" @click="switch_burger" class = "max-sm:flex-col max-sm:flex max-sm:mr-8 max-sm:justify-between max-sm:items-center max-sm:h6">
+            <span class="h-[3px] w-full bg-brown-200"></span>
+            <span class="h-[3px] w-full bg-brown-200"></span>
+            <span class="h-[3px] w-full bg-brown-200"></span>
+        </div>
+        <div v-else class = "max-sm:flex-col max-sm:flex max-sm:mr-8 max-sm:justify-between max-sm:items-center max-sm:h6" @click="switch_burger">
+            <span class="h-[3px] w-full bg-brown-200 rotate-45 relative top[9px]"></span>
+            <span class="h-[3px] w-full bg-brown-200 opacity-0"></span>
+            <span class="h-[3px] w-full bg-brown-200 relative bottom-3 rotate-[-45deg]"></span>
+        </div>
+	</header>
     <main class = "p-5 flex bg-green-100 h-screen">
         <slot />
     </main>
@@ -30,8 +43,9 @@
 </template>
 
 <!-- Google tag (gtag.js) -->
-<script setup>
-import { useHead } from '#app';
+<script setup lang="ts">
+import {useHead} from '#app';
+import {ref} from 'vue';
 
 useHead({
     script: [
@@ -54,3 +68,8 @@ useHead({
     },
 });
 </script>
+
+const burger = ref<boolean>(false)
+const submenu = ref<boolean>(false)
+const switch_burger =()=>(burger.value = !burger.value)
+const switch_submenu =()=>(submenu.value = !submenu.value)
